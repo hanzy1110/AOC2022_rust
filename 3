@@ -1,0 +1,104 @@
+pub mod challenges_2 {
+    use itertools::Itertools;
+    use std::fs;
+    pub const PATH: &'static str = "/home/blueman69/aoc2022/elf_strategy.txt";
+
+    #[derive(Debug)]
+    pub struct Play<'a> {
+        oponent: &'a str,
+        player: &'a str,
+    }
+
+    fn parse_player(pl: &str) -> &str {
+        match pl {
+            "X" => "Rock",
+            "Y" => "Paper",
+            "Z" => "Scissors",
+            _ => "Invalid Play",
+        }
+    }
+
+    fn parse_op(op: &str) -> &str {
+        match op {
+            "A" => "Rock",
+            "B" => "Paper",
+            "C" => "Scissors",
+            _ => "Invalid Play",
+        }
+    }
+
+    impl<'a> Play<'a> {
+        fn from_file_contents(s: &'a str) -> Option<Self> {
+            let play = s.split_whitespace().collect_tuple().map(|(op, pl)| Play {
+                oponent: parse_op(op),
+                player: parse_player(pl),
+            });
+            return play;
+        }
+    }
+
+    fn parse_file(contents: &mut String) -> Vec<Play> {
+        // let contents = fs::read_to_string(PATH).expect("cant open file!");
+        let values: Vec<Play> = contents
+            .split("\n")
+            .map(|val| {
+                let aux = match Play::from_file_contents(val) {
+                    Some(p) => p,
+                    None => Play {
+                        oponent: "H",
+                        player: "H",
+                    },
+                };
+                return aux;
+            })
+            .collect();
+        return values;
+    }
+
+    fn determine_outcome(p: &mut Play) -> String {
+        let mut res = match p {
+            Play {
+                player: "Rock",
+                oponent: "Scissors",
+            } => String::from("Won"),
+            Play {
+                player: "Rock",
+                oponent: "Paper",
+            } => String::from("Lost"),
+            Play {
+                player: "Paper",
+                oponent: "Rock",
+            } => String::from("Won"),
+            Play {
+                player: "Paper",
+                oponent: "Scissors",
+            } => String::from("Lost"),
+            Play {
+                player: "Scissors",
+                oponent: "Paper",
+            } => String::from("Won"),
+            Play {
+                player: "Scissors",
+                oponent: "Rock",
+            } => String::from("Lost"),
+
+            _ => "Invalid",
+        };
+
+        if p.oponent == p.player {
+            res = "Draw";
+        }
+        return res;
+    }
+
+    pub fn first_challenge() {
+        let mut contents = fs::read_to_string(PATH).expect("cant open file!");
+        let plays = parse_file(&mut contents);
+
+        let outcomes = plays.iter().map(|x| determine_outcome(&mut x));
+
+        for p in plays {
+            println!("{:?}", p);
+        }
+    }
+}
