@@ -8,6 +8,9 @@ use crate::second::challenges_2;
 mod second2;
 use crate::second2::challenges_2v2;
 
+mod third;
+use crate::third::third_day;
+
 fn main() {
     // let max_calories = challenges::first_challenge();
     // println!("Max calories found! {}", max_calories);
@@ -23,4 +26,6 @@ fn main() {
     println!("Total Score new is: {}", total_score_2);
 
     challenges_2v2::second_challenge();
+
+    third_day::first_challenge();
 }
