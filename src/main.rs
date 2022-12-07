@@ -27,5 +27,6 @@ fn main() {
 
     challenges_2v2::second_challenge();
 
-    third_day::first_challenge();
+    let total_priorities = third_day::first_challenge();
+    println!("total priorities were: {}", total_priorities)
 }
