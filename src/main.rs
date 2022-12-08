@@ -5,11 +5,14 @@ mod first;
 mod second;
 use crate::second::challenges_2;
 
-mod second2;
-use crate::second2::challenges_2v2;
+// mod second2;
+// use crate::second2::challenges_2v2;
 
 mod third;
 use crate::third::third_day;
+
+mod fourth;
+use crate::fourth::fourth_day;
 
 fn main() {
     // let max_calories = challenges::first_challenge();
@@ -22,11 +25,20 @@ fn main() {
     println!("{:?}", scores.len());
     println!("Total Score is: {}", total_score);
 
-    let total_score_2 = challenges_2::second_challenge();
-    println!("Total Score new is: {}", total_score_2);
+    // let total_score_2 = challenges_2::second_challenge();
+    // println!("Total Score new is: {}", total_score_2);
 
-    challenges_2v2::second_challenge();
+    // challenges_2v2::second_challenge();
 
     let total_priorities = third_day::first_challenge();
-    println!("total priorities were: {}", total_priorities)
+    println!("total priorities were: {}", total_priorities);
+
+    let total_grouped_priorities = third_day::second_challenge();
+    println!("total priorities were: {}", total_grouped_priorities);
+
+    let total_inclusions = fourth_day::first_challenge();
+    println!("total inclusions were: {}", total_inclusions);
+
+    let total_intersections = fourth_day::second_challenge();
+    println!("total inclusions were: {}", total_intersections)
 }
